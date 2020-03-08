@@ -40,27 +40,27 @@ void Kmeans::AttemptCompute(){
 	int rows=testData.rows;
 	int cols=testData.cols;
 
-	//初始化质心;
+	//Initialize the centroid;
 	cv::Mat center;
 	InitCenter(center);
 	assert(center.rows==class_num&&center.cols==cols);
 	
-	//迭代过程中暂时性存放最近距离和质点；
+	//Temporarily store the closest distance and centroid during the iteration;
 	cv::Mat J = cv::Mat::zeros(rows, 2, CV_32FC1);
 
-	//每一个样本向量与质心的距离关系的迭代；
+	//Iteration of the distance relationship between each sample vector and the centroid;
 	for(int t=0;t<T;t++){
 
-			//质点跟新位置累计；
+			//The mass points are accumulated with the new position;
 		cv::Mat sum_center = cv::Mat::zeros(class_num, cols, CV_32FC1);
 	    cv::Mat num_center = cv::Mat::zeros(1,class_num,CV_32FC1);
 
-		//遍历每一行向量；
+		//Traverse each row of vectors;
 		for(int r=0;r<rows;r++){
 			float min_distance = 9999999.0;
 			int tag_c = class_num + 1;
 
-	        //计算个体 r 到每一个center的距离；
+	        //Calculate the distance from individual r to each center;
 			for (int c = 0; c < class_num; c++) {
 				float temp = GetDistance(r, c,center);
 				
@@ -72,7 +72,7 @@ void Kmeans::AttemptCompute(){
 			J.ptr<float>(r)[0] = tag_c;
 			J.ptr<float>(r)[1] = min_distance;
 			
-			//为后面的Update Center 做准备;
+			//Prepare for the following Update Center;
 			num_center.at<float>(0,tag_c)++;
 			for (int j = 0; j < cols; j++) {
 				sum_center.ptr<float>(tag_c)[j] += testData.ptr<float>(r)[j];
@@ -95,7 +95,7 @@ void Kmeans::AttemptCompute(){
 
 }
 
-//初始化质心算法；
+//Initialize the centroid algorithm;
 void Kmeans::InitCenter(cv::Mat &Center){
 
 	Center=cv::Mat::zeros(class_num,testData.cols,CV_32FC1);
@@ -148,7 +148,7 @@ inline float Kmeans::GetDistance(int r, int c,cv::Mat &center){
 
 	temp3=temp3*temp3.t();
 	temp=temp3.ptr<float>(0)[0];
-	temp = sqrt(temp);  //调整距离公式。
+	temp = sqrt(temp);  //Adjust the distance formula.
 	return temp;
 }
 
@@ -195,7 +195,7 @@ void Kmeans::ResultsAnalysis(){
 
 	for (int i = 0; i<class_num; i++) {
 
-		//刷新table
+		//Refresh table
 		for (int k = 0; k<class_num; k++) {
 			table[k] = 0;
 		}
@@ -204,7 +204,7 @@ void Kmeans::ResultsAnalysis(){
 			table[(int)J_min.ptr<float>(i*testnum + j)[0]]++;
 		}
 
-		std::sort(table, table + class_num);   //调用排序函数进行排序，获取最大聚类。
+		std::sort(table, table + class_num);   //Call the sort function to sort to get the largest cluster.
 
 		class_true_num = table[class_num - 1];
 
@@ -212,13 +212,13 @@ void Kmeans::ResultsAnalysis(){
 
 		double class_rate = class_true_num / testnum;
 
-		fout << "第" << i << "识别率" << class_rate << std::endl;
+		fout << i << "th " << "Recognition rate" << class_rate << std::endl;
 	}
 
 	double sum_rate = sum_true_num / (class_num*testnum);
 
 	
-	fout << sum_rate << std::endl;   //将识别率保存在res.txt文件下。
+	fout << sum_rate << std::endl;   //Save the recognition rate under the res.txt file.
 	fout.close();
 
 }

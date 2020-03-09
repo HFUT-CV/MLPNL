@@ -8,17 +8,17 @@
 #include<thread>
 #include<mutex>
 
-const int train_num = 5;                                          //每类样本的训练数；
+const int train_num = 5;                                          //Training number of each class;
 
-const int sample_num = 200;                                       //每类样本的样本数；
+const int sample_num = 200;                                       //The number of samples in each class;
 
-const int class_num = 80;                                         //样本的类数;
+const int class_num = 80;                                         //Number of classes in the sample;
 
-const int IsInitCenter=0;       //质心初始化方式，0为用训练样本生成质心，1为在测试样本中随机生成质心；
+const int IsInitCenter=0;       //The centroid initialization method, 0 is used to generate centroids from training samples, and 1 is used to randomly generate centroids in test samples;
 
-const int attempt_num=4;        //重复初始化的次数；
+const int attempt_num=4;        //The number of repeated initializations;
 
-const int T=100;   //迭代次数；
+const int T=100;   //Number of iterations
 
 class Kmeans{
 

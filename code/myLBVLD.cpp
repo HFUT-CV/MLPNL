@@ -56,17 +56,17 @@ myLBVLD::myLBVLD() {
 		block_stride = block_r;
 	}
 	else {
-		block_stride = block_r * 2 + 1;   //The length of block_r equal to 2 times has the effect of no sliding window.
+		block_stride = block_r * 2 + 1;   //It would be as same as no sliding window when block_stride equals to block_r*2+1.
 	}
 
 	Block_Size = cv::Size(2 * block_r + 1, 2 * block_r + 1);
 
 	Block_num = cv::Size(((img_size.width - 2 * r) - Block_Size.width + block_stride) / block_stride, ((img_size.height - 2 * r) - Block_Size.height + block_stride) / block_stride);
 
-	//PDM矩阵的维度：D1*D2
-	D1 = trainnum*classnum*Block_Size.area();// Sample_size*Sample_size - 1;       //Dimensions of the W:D1*d1;
+	//Dimension of PDM matrix：D1*D2
+	D1 = trainnum*classnum*Block_Size.area();// Sample_size*Sample_size - 1;       //Dimension of the W:D1*d1;
 
-	D2 = (2 * r + 1)*(2 * r + 1) - 1;               //Dimensions of the V:D2*d2;
+	D2 = (2 * r + 1)*(2 * r + 1) - 1;               //Dimension of the V:D2*d2;
 }
 
 void myLBVLD::Extract_PDM() {

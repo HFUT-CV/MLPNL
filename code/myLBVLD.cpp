@@ -1285,7 +1285,7 @@ cv::Mat myLBVLD::Mat_Map_HashBinary(cv::Mat mat) {
 	for (int i = 0; i<mat.rows; i++) {
 		float temp = 0;
 		for (int j = 0; j<mat.cols; j++) {
-			temp += mat.at<float>(i, mat.cols - j - 1)*(1 << j);          //乘以2的n次方
+			temp += mat.at<float>(i, mat.cols - j - 1)*(1 << j);         
 		}
 		binary.at<float>(0, i) = temp;
 	}

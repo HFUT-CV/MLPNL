@@ -204,7 +204,7 @@ void Kmeans::ResultsAnalysis(){
 			table[(int)J_min.ptr<float>(i*testnum + j)[0]]++;
 		}
 
-		std::sort(table, table + class_num);   //Call the sort function to sort to get the largest cluster.
+		std::sort(table, table + class_num);   //Call the sort function to get the largest cluster.
 
 		class_true_num = table[class_num - 1];
 
@@ -218,7 +218,7 @@ void Kmeans::ResultsAnalysis(){
 	double sum_rate = sum_true_num / (class_num*testnum);
 
 	
-	fout << sum_rate << std::endl;   //Save the recognition rate under the res.txt file.
+	fout << sum_rate << std::endl;   //Save the recognition rate in the res.txt file.
 	fout.close();
 
 }

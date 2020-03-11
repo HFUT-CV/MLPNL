@@ -111,5 +111,5 @@ private:
 public:
 	myLBVLD();
 
-	void Process();             //Sample data preprocessingand other related content
+	void Process();             //Sample data preprocessing other related content
 };
